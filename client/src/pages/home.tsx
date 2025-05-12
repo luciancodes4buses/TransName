@@ -1,9 +1,10 @@
 import React from "react";
-import { User } from "lucide-react";
+import { User, BookmarkIcon } from "lucide-react";
+import SimpleBookmarklet from "@/components/SimpleBookmarklet";
 
 export default function Home() {
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-10">
+    <div className="max-w-4xl mx-auto p-6 mt-10 pb-32">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-[#55CDFC] via-[#F7A8B8] to-[#55CDFC] text-transparent bg-clip-text inline-block">TransName</h1>
         <div className="h-1 w-32 mx-auto bg-gradient-to-r from-[#55CDFC] via-[#F7A8B8] to-[#55CDFC]"></div>
@@ -19,6 +20,7 @@ export default function Home() {
         </p>
         <p className="mb-4">
           Use the floating user button in the bottom-right corner to open the tool and configure your settings.
+          Then use the bookmarklet to apply name replacements on any website.
         </p>
       </div>
       
@@ -30,11 +32,12 @@ export default function Home() {
           <li>Enter your deadname (the name you want to replace) and your preferred name</li>
           <li>Select your original pronouns and preferred pronouns</li>
           <li>Adjust settings like case preservation and highlighting if needed</li>
-          <li>Click "Save & Apply" to start seeing your preferred name across websites</li>
+          <li>Save your settings, then drag the bookmarklet to your bookmarks bar</li>
+          <li>Click the bookmarklet on any website to activate TransName</li>
         </ol>
       </div>
       
-      <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-[#55CDFC]">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-[#55CDFC]">
         <h2 className="text-xl font-semibold mb-4 flex items-center text-[#F7A8B8]">
           Features
         </h2>
@@ -44,10 +47,13 @@ export default function Home() {
           <li>Preserve capitalization when making replacements</li>
           <li>Highlight replaced text to see where changes were made</li>
           <li>Track statistics on name and pronoun replacements</li>
-          <li>No download required - works entirely in your browser</li>
+          <li>No download required - works entirely in your browser as a bookmarklet</li>
           <li>Your data stays private and is stored only on your device</li>
         </ul>
       </div>
+      
+      {/* Bookmarklet Generator Component */}
+      <SimpleBookmarklet />
       
       <div className="mt-8 text-center">
         <div className="inline-block p-4 bg-white rounded-lg shadow-md">
