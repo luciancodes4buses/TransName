@@ -181,50 +181,61 @@ function TransNameApp() {
                         </TooltipProvider>
                       </div>
                       
-                      <div className="grid grid-cols-1 gap-3">
-                        {/* Transition type selector */}
+                      <div className="space-y-3">
+                        {/* Transition type selector using radio buttons */}
                         <div>
-                          <Label htmlFor="transitionType" className="block text-xs text-neutral-500 mb-1">
+                          <Label className="block text-xs text-neutral-500 mb-2">
                             I'm transitioning as:
                           </Label>
-                          <div className="relative">
-                            <Select
-                              value={settings.oldPronouns}
-                              onValueChange={(value) => {
-                                // Set both old and new pronouns based on transition type
-                                if (value === "mtf") {
-                                  updateSettings({ 
-                                    oldPronouns: "he/him",
-                                    newPronouns: "she/her" 
-                                  });
-                                } 
-                                else if (value === "ftm") {
-                                  updateSettings({ 
-                                    oldPronouns: "she/her",
-                                    newPronouns: "he/him" 
-                                  });
-                                }
-                                else if (value === "nonbinary") {
-                                  updateSettings({ 
-                                    oldPronouns: value, // Just store the selection in oldPronouns
-                                    newPronouns: "they/them" 
-                                  });
-                                }
-                                else {
-                                  updateSettings({ oldPronouns: value });
-                                }
-                              }}
+                          <div className="grid grid-cols-2 gap-2">
+                            <Button 
+                              type="button"
+                              variant={settings.oldPronouns === "mtf" ? "default" : "outline"}
+                              className={settings.oldPronouns === "mtf" ? "bg-gradient-to-r from-[#55CDFC] to-[#F7A8B8]" : ""}
+                              onClick={() => updateSettings({ 
+                                oldPronouns: "mtf",
+                                newPronouns: "she/her" 
+                              })}
                             >
-                              <SelectTrigger className="w-full text-sm">
-                                <SelectValue placeholder="Select your transition type" />
-                              </SelectTrigger>
-                              <SelectContent side="top" position="popper" sideOffset={5} className="min-w-[8rem] z-[9999]">
-                                <SelectItem value="mtf">MTF (he/him → she/her)</SelectItem>
-                                <SelectItem value="ftm">FTM (she/her → he/him)</SelectItem>
-                                <SelectItem value="nonbinary">Non-binary (→ they/them)</SelectItem>
-                                <SelectItem value="custom">Custom (set manually below)</SelectItem>
-                              </SelectContent>
-                            </Select>
+                              MTF (he/him → she/her)
+                            </Button>
+                            
+                            <Button 
+                              type="button"
+                              variant={settings.oldPronouns === "ftm" ? "default" : "outline"}
+                              className={settings.oldPronouns === "ftm" ? "bg-gradient-to-r from-[#55CDFC] to-[#F7A8B8]" : ""}
+                              onClick={() => updateSettings({ 
+                                oldPronouns: "ftm",
+                                newPronouns: "he/him" 
+                              })}
+                            >
+                              FTM (she/her → he/him)
+                            </Button>
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-2 mt-2">
+                            <Button 
+                              type="button"
+                              variant={settings.oldPronouns === "nonbinary" ? "default" : "outline"}
+                              className={settings.oldPronouns === "nonbinary" ? "bg-gradient-to-r from-[#55CDFC] to-[#F7A8B8]" : ""}
+                              onClick={() => updateSettings({ 
+                                oldPronouns: "nonbinary",
+                                newPronouns: "they/them" 
+                              })}
+                            >
+                              Non-binary (→ they/them)
+                            </Button>
+                            
+                            <Button 
+                              type="button"
+                              variant={settings.oldPronouns === "custom" ? "default" : "outline"}
+                              className={settings.oldPronouns === "custom" ? "bg-gradient-to-r from-[#55CDFC] to-[#F7A8B8]" : ""}
+                              onClick={() => updateSettings({ 
+                                oldPronouns: "custom"
+                              })}
+                            >
+                              Custom Pronouns
+                            </Button>
                           </div>
                         </div>
                       </div>
