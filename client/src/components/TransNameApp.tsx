@@ -187,21 +187,23 @@ function TransNameApp() {
                           <Label htmlFor="oldPronouns" className="block text-xs text-neutral-500 mb-1">
                             Original
                           </Label>
-                          <Select
-                            value={settings.oldPronouns}
-                            onValueChange={(value) => updateSettings({ oldPronouns: value })}
-                          >
-                            <SelectTrigger className="w-full text-sm">
-                              <SelectValue placeholder="Select pronouns" />
-                            </SelectTrigger>
-                            <SelectContent position="popper" className="min-w-[8rem] z-[9999]">
-                              <SelectItem value="he/him">he/him</SelectItem>
-                              <SelectItem value="she/her">she/her</SelectItem>
-                              <SelectItem value="they/them">they/them</SelectItem>
-                              <SelectItem value="ze/zir">ze/zir</SelectItem>
-                              <SelectItem value="custom">Custom</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <div className="relative">
+                            <Select
+                              value={settings.oldPronouns}
+                              onValueChange={(value) => updateSettings({ oldPronouns: value })}
+                            >
+                              <SelectTrigger className="w-full text-sm">
+                                <SelectValue placeholder="Select pronouns" />
+                              </SelectTrigger>
+                              <SelectContent side="top" position="popper" sideOffset={5} className="min-w-[8rem] z-[9999]">
+                                <SelectItem value="he/him">he/him</SelectItem>
+                                <SelectItem value="she/her">she/her</SelectItem>
+                                <SelectItem value="they/them">they/them</SelectItem>
+                                <SelectItem value="ze/zir">ze/zir</SelectItem>
+                                <SelectItem value="custom">Custom</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
                         </div>
                         
                         {/* New pronouns */}
@@ -209,21 +211,23 @@ function TransNameApp() {
                           <Label htmlFor="newPronouns" className="block text-xs text-neutral-500 mb-1">
                             Preferred
                           </Label>
-                          <Select
-                            value={settings.newPronouns}
-                            onValueChange={(value) => updateSettings({ newPronouns: value })}
-                          >
-                            <SelectTrigger className="w-full text-sm">
-                              <SelectValue placeholder="Select pronouns" />
-                            </SelectTrigger>
-                            <SelectContent position="popper" className="min-w-[8rem] z-[9999]">
-                              <SelectItem value="he/him">he/him</SelectItem>
-                              <SelectItem value="she/her">she/her</SelectItem>
-                              <SelectItem value="they/them">they/them</SelectItem>
-                              <SelectItem value="ze/zir">ze/zir</SelectItem>
-                              <SelectItem value="custom">Custom</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <div className="relative">
+                            <Select
+                              value={settings.newPronouns}
+                              onValueChange={(value) => updateSettings({ newPronouns: value })}
+                            >
+                              <SelectTrigger className="w-full text-sm">
+                                <SelectValue placeholder="Select pronouns" />
+                              </SelectTrigger>
+                              <SelectContent side="top" position="popper" sideOffset={5} className="min-w-[8rem] z-[9999]">
+                                <SelectItem value="he/him">he/him</SelectItem>
+                                <SelectItem value="she/her">she/her</SelectItem>
+                                <SelectItem value="they/them">they/them</SelectItem>
+                                <SelectItem value="ze/zir">ze/zir</SelectItem>
+                                <SelectItem value="custom">Custom</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
                         </div>
                       </div>
                       

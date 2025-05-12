@@ -123,7 +123,7 @@ const getBookmarkletCode = (settings: any): string => {
         deadNameVariations.forEach(name => {
           if (!name) return;
           
-          const regex = new RegExp(wordBoundary + name.replace(/[.*+?^${}()|[\\\\]\\\\]/g, '\\\\$&') + wordBoundary, 'gi');
+          const regex = new RegExp(wordBoundary + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + wordBoundary, 'gi');
           
           text = text.replace(regex, match => {
             nameCount++;
@@ -138,7 +138,7 @@ const getBookmarkletCode = (settings: any): string => {
           Object.entries(pronounMapping).forEach(([oldPronoun, newPronoun]) => {
             if (!oldPronoun || !newPronoun) return;
             
-            const pronounRegex = new RegExp(wordBoundary + oldPronoun.replace(/[.*+?^${}()|[\\\\]\\\\]/g, '\\\\$&') + wordBoundary, 'gi');
+            const pronounRegex = new RegExp(wordBoundary + oldPronoun.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + wordBoundary, 'gi');
             
             text = text.replace(pronounRegex, match => {
               pronounCount++;
