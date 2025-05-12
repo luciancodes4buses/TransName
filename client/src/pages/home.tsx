@@ -1,5 +1,5 @@
 import React from "react";
-import { Heart } from "lucide-react";
+import { User } from "lucide-react";
 
 export default function Home() {
   return (
@@ -11,20 +11,20 @@ export default function Home() {
       
       <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-[#55CDFC]">
         <h2 className="text-xl font-semibold mb-4 flex items-center text-[#F7A8B8]">
-          <Heart className="mr-2 h-5 w-5" /> About TransName
+          About TransName
         </h2>
         <p className="mb-4">
           TransName is a browser-based tool that helps transgender users see their preferred name and pronouns
           instead of deadnames across websites. It works entirely in your browser, so your data never leaves your device.
         </p>
         <p className="mb-4">
-          Use the floating heart button in the bottom-right corner to open the tool and configure your settings.
+          Use the floating user button in the bottom-right corner to open the tool and configure your settings.
         </p>
       </div>
       
       <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-[#F7A8B8]">
         <h2 className="text-xl font-semibold mb-4 flex items-center text-[#55CDFC]">
-          <Heart className="mr-2 h-5 w-5" /> How It Works
+          How It Works
         </h2>
         <ol className="list-decimal ml-6 space-y-2">
           <li>Enter your deadname (the name you want to replace) and your preferred name</li>
@@ -36,7 +36,7 @@ export default function Home() {
       
       <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-[#55CDFC]">
         <h2 className="text-xl font-semibold mb-4 flex items-center text-[#F7A8B8]">
-          <Heart className="mr-2 h-5 w-5" /> Features
+          Features
         </h2>
         <ul className="list-disc ml-6 space-y-2">
           <li>Replace deadname with preferred name across <span className="font-semibold text-[#55CDFC]">any website</span>, including emails and student portals</li>
@@ -52,7 +52,7 @@ export default function Home() {
       <div className="mt-8 text-center">
         <div className="inline-block p-4 bg-white rounded-lg shadow-md">
           <p className="text-sm text-neutral-700">
-            Click the floating heart button in the bottom-right to get started!
+            Click the floating user button in the bottom-right to get started!
           </p>
         </div>
       </div>

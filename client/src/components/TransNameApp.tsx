@@ -50,7 +50,7 @@ function TransNameApp() {
         className="w-14 h-14 rounded-full bg-primary text-white shadow-md hover:bg-primary/90 transition-all duration-300"
         aria-label="Toggle TransName tool"
       >
-        <Heart className="h-6 w-6" />
+        <User className="h-6 w-6" />
       </Button>
       
       {/* Stats badge (visible when app is closed but active) */}
@@ -73,7 +73,7 @@ function TransNameApp() {
               <CardHeader className="p-4 pb-3 bg-gradient-to-r from-[#55CDFC] via-[#F7A8B8] to-[#55CDFC] text-white">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
-                    <Heart className="h-5 w-5 mr-2" />
+                    <SquareSplitHorizontal className="h-5 w-5 mr-2" />
                     <CardTitle className="text-lg font-semibold">TransName</CardTitle>
                   </div>
                   <Button 

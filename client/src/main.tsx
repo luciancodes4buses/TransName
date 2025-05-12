@@ -10,14 +10,14 @@ appRoot.style.position = 'fixed';
 appRoot.style.zIndex = '9999999'; // Ensure it's above everything
 document.body.appendChild(appRoot);
 
-// Add the extension to any browser tab
-if (window.location.pathname !== "/") {
-  // Load settings from local storage when running on external sites
-  const savedSettings = localStorage.getItem("transname-settings");
-  if (savedSettings) {
-    const settings = JSON.parse(savedSettings);
-    if (settings.isActive && settings.deadname && settings.preferredName) {
-      // Activate the replacer immediately
+// Activate replacer on any page (including our own app and external pages)
+// This ensures full coverage across all web content, including emails and student portals
+const savedSettings = localStorage.getItem("transname-settings");
+if (savedSettings) {
+  const settings = JSON.parse(savedSettings);
+  if (settings.isActive && settings.deadname && settings.preferredName) {
+    // Function to activate the replacer
+    const activateReplacer = () => {
       replacer.observe({
         deadname: settings.deadname,
         preferredName: settings.preferredName,
@@ -37,7 +37,13 @@ if (window.location.pathname !== "/") {
           localStorage.setItem("transname-stats", JSON.stringify(stats));
         }
       });
-    }
+    };
+    
+    // Activate immediately
+    activateReplacer();
+    
+    // Also activate after a delay to ensure dynamic content is processed
+    setTimeout(activateReplacer, 1000);
   }
 }
 

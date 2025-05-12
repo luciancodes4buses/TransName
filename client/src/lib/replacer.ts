@@ -210,6 +210,41 @@ class Replacer {
   private observer: MutationObserver | null = null;
   private config: ReplacerConfig | null = null;
   
+  // Function to scan for iframes
+  private scanForIframes(config: ReplacerConfig) {
+    // Try to process iframes if they exist on the page (like email clients)
+    try {
+      const iframes = document.querySelectorAll('iframe');
+      iframes.forEach(iframe => {
+        try {
+          if (iframe.contentDocument && iframe.contentDocument.body) {
+            // Process iframe content
+            const [iframeNames, iframePronouns] = processNode(iframe.contentDocument.body, config);
+            
+            // Notify of iframe replacements if there are any
+            if (iframeNames > 0 || iframePronouns > 0) {
+              config.onReplace?.(iframeNames, iframePronouns);
+            }
+            
+            // Observe iframe content for changes if possible
+            if (this.observer && iframe.contentDocument) {
+              this.observer.observe(iframe.contentDocument.body, {
+                childList: true,
+                subtree: true,
+                characterData: true,
+              });
+            }
+          }
+        } catch (e) {
+          // Cross-origin iframe access will throw errors, we can ignore these
+          console.debug("Could not access iframe content (likely cross-origin)");
+        }
+      });
+    } catch (e) {
+      console.debug("Error processing iframes:", e);
+    }
+  }
+  
   // Start observing DOM changes
   observe(config: ReplacerConfig): ReplacerObserver {
     this.disconnect(); // Disconnect any existing observer
@@ -235,7 +270,8 @@ class Replacer {
       
       for (const mutation of mutations) {
         // Skip if mutation is in our own injected styles
-        if (mutation.target.id === 'transname-style') continue;
+        if (mutation.target.nodeType === Node.ELEMENT_NODE && 
+            (mutation.target as Element).id === 'transname-style') continue;
         
         // Process added nodes
         if (mutation.type === 'childList') {
@@ -243,6 +279,14 @@ class Replacer {
             const [names, pronouns] = processNode(node, config);
             nameCount += names;
             pronounCount += pronouns;
+            
+            // Check if this is an iframe being added
+            if (node.nodeName === 'IFRAME') {
+              // Wait for iframe to load
+              (node as HTMLIFrameElement).addEventListener('load', () => {
+                this.scanForIframes(config);
+              });
+            }
           }
         }
         // Process changed text
@@ -266,8 +310,26 @@ class Replacer {
       characterData: true,
     });
     
+    // Scan for iframes
+    this.scanForIframes(config);
+    
+    // Periodically rescan the page (for email clients and dynamic content)
+    const intervalId = setInterval(() => {
+      // Re-process the entire DOM to catch anything that might have been missed
+      const [names, pronouns] = processNode(document.body, config);
+      if (names > 0 || pronouns > 0) {
+        config.onReplace?.(names, pronouns);
+      }
+      
+      // Scan for new iframes
+      this.scanForIframes(config);
+    }, 2000); // Every 2 seconds
+    
     return {
-      disconnect: () => this.disconnect(),
+      disconnect: () => {
+        this.disconnect();
+        clearInterval(intervalId);
+      },
     };
   }
   
