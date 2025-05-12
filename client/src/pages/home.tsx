@@ -1,23 +1,31 @@
 import React from "react";
+import { Heart } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="max-w-4xl mx-auto p-6 mt-10">
-      <h1 className="text-3xl font-bold mb-6 text-neutral-800">TransName Tool</h1>
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-[#55CDFC] via-[#F7A8B8] to-[#55CDFC] text-transparent bg-clip-text inline-block">TransName</h1>
+        <div className="h-1 w-32 mx-auto bg-gradient-to-r from-[#55CDFC] via-[#F7A8B8] to-[#55CDFC]"></div>
+      </div>
       
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">About TransName</h2>
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-[#55CDFC]">
+        <h2 className="text-xl font-semibold mb-4 flex items-center text-[#F7A8B8]">
+          <Heart className="mr-2 h-5 w-5" /> About TransName
+        </h2>
         <p className="mb-4">
           TransName is a browser-based tool that helps transgender users see their preferred name and pronouns
           instead of deadnames across websites. It works entirely in your browser, so your data never leaves your device.
         </p>
         <p className="mb-4">
-          Use the floating button in the bottom-right corner to open the tool and configure your settings.
+          Use the floating heart button in the bottom-right corner to open the tool and configure your settings.
         </p>
       </div>
       
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">How It Works</h2>
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-[#F7A8B8]">
+        <h2 className="text-xl font-semibold mb-4 flex items-center text-[#55CDFC]">
+          <Heart className="mr-2 h-5 w-5" /> How It Works
+        </h2>
         <ol className="list-decimal ml-6 space-y-2">
           <li>Enter your deadname (the name you want to replace) and your preferred name</li>
           <li>Select your original pronouns and preferred pronouns</li>
@@ -26,10 +34,12 @@ export default function Home() {
         </ol>
       </div>
       
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold mb-4">Features</h2>
+      <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-[#55CDFC]">
+        <h2 className="text-xl font-semibold mb-4 flex items-center text-[#F7A8B8]">
+          <Heart className="mr-2 h-5 w-5" /> Features
+        </h2>
         <ul className="list-disc ml-6 space-y-2">
-          <li>Replace deadname with preferred name across web pages</li>
+          <li>Replace deadname with preferred name across <span className="font-semibold text-[#55CDFC]">any website</span>, including emails and student portals</li>
           <li>Replace incorrect pronouns with preferred pronouns</li>
           <li>Preserve capitalization when making replacements</li>
           <li>Highlight replaced text to see where changes were made</li>
@@ -37,6 +47,14 @@ export default function Home() {
           <li>No download required - works entirely in your browser</li>
           <li>Your data stays private and is stored only on your device</li>
         </ul>
+      </div>
+      
+      <div className="mt-8 text-center">
+        <div className="inline-block p-4 bg-white rounded-lg shadow-md">
+          <p className="text-sm text-neutral-700">
+            Click the floating heart button in the bottom-right to get started!
+          </p>
+        </div>
       </div>
     </div>
   );

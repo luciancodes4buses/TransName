@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
 import StatsBadge from "@/components/StatsBadge";
-import { X, User, Info, SquareSplitHorizontal } from "lucide-react";
+import { X, User, Info, SquareSplitHorizontal, Heart } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 function TransNameApp() {
@@ -47,10 +47,10 @@ function TransNameApp() {
         onClick={toggleOpen}
         variant="default"
         size="icon"
-        className="w-14 h-14 rounded-full bg-primary text-white shadow-md hover:bg-primary/90"
+        className="w-14 h-14 rounded-full bg-primary text-white shadow-md hover:bg-primary/90 transition-all duration-300"
         aria-label="Toggle TransName tool"
       >
-        <User className="h-6 w-6" />
+        <Heart className="h-6 w-6" />
       </Button>
       
       {/* Stats badge (visible when app is closed but active) */}
@@ -70,17 +70,17 @@ function TransNameApp() {
             className="mt-4 w-80"
           >
             <Card className="shadow-lg border-none overflow-hidden">
-              <CardHeader className="bg-primary text-white p-4 pb-3">
+              <CardHeader className="p-4 pb-3 bg-gradient-to-r from-[#55CDFC] via-[#F7A8B8] to-[#55CDFC] text-white">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
-                    <SquareSplitHorizontal className="h-5 w-5 mr-2" />
+                    <Heart className="h-5 w-5 mr-2" />
                     <CardTitle className="text-lg font-semibold">TransName</CardTitle>
                   </div>
                   <Button 
                     variant="ghost" 
                     size="icon" 
                     onClick={toggleOpen}
-                    className="h-8 w-8 text-white hover:text-white/80 hover:bg-primary-dark"
+                    className="h-8 w-8 text-white hover:text-white/80 hover:bg-white/10"
                   >
                     <X className="h-5 w-5" />
                   </Button>
@@ -324,14 +324,14 @@ function TransNameApp() {
                       <Button
                         type="button"
                         variant="outline"
-                        className="flex-1"
+                        className="flex-1 border-secondary text-secondary hover:bg-secondary/10"
                         onClick={handleClearClick}
                       >
                         Clear
                       </Button>
                       <Button
                         type="submit"
-                        className="flex-1 bg-primary hover:bg-primary/90"
+                        className="flex-1 bg-gradient-to-r from-[#55CDFC] via-[#F7A8B8] to-[#55CDFC] text-white hover:opacity-90 transition-opacity"
                       >
                         Save & Apply
                       </Button>
