@@ -19,6 +19,8 @@ const SimpleBookmarklet = () => {
           // Basic variables from settings
           const deadname = "${settings.deadname}";
           const preferredName = "${settings.preferredName}";
+          const oldPronouns = "${settings.oldPronouns === "custom" ? settings.customOldPronouns || "" : settings.oldPronouns}";
+          const newPronouns = "${settings.newPronouns === "custom" ? settings.customNewPronouns || "" : settings.newPronouns}";
           const preserveCase = ${settings.preserveCase};
           const wholeWord = ${settings.wholeWord};
           
@@ -43,9 +45,9 @@ const SimpleBookmarklet = () => {
               const original = node.nodeValue;
               
               // Replace deadname with preferred name
-              let pattern = wholeWord ? '\\\\b' + deadname + '\\\\b' : deadname;
-              const regex = new RegExp(pattern, 'gi');
-              let newText = original.replace(regex, (match) => {
+              let namePattern = wholeWord ? '\\\\b' + deadname + '\\\\b' : deadname;
+              const nameRegex = new RegExp(namePattern, 'gi');
+              let newText = original.replace(nameRegex, (match) => {
                 // Preserve case if needed
                 if (!preserveCase) return preferredName;
                 if (match === match.toUpperCase()) return preferredName.toUpperCase();
@@ -54,6 +56,51 @@ const SimpleBookmarklet = () => {
                 }
                 return preferredName;
               });
+              
+              // Replace pronouns if provided
+              if (oldPronouns && newPronouns) {
+                // Simple pronoun replacement for common sets
+                let oldPronounList = [];
+                let newPronounList = [];
+                
+                // Extract pronoun lists based on common sets
+                if (oldPronouns.includes('he/him')) {
+                  oldPronounList = ['he', 'him', 'his', "he's", 'himself'];
+                } else if (oldPronouns.includes('she/her')) {
+                  oldPronounList = ['she', 'her', 'hers', "she's", 'herself'];
+                } else if (oldPronouns.includes('they/them')) {
+                  oldPronounList = ['they', 'them', 'their', "they're", 'themselves'];
+                }
+                
+                if (newPronouns.includes('he/him')) {
+                  newPronounList = ['he', 'him', 'his', "he's", 'himself'];
+                } else if (newPronouns.includes('she/her')) {
+                  newPronounList = ['she', 'her', 'hers', "she's", 'herself'];
+                } else if (newPronouns.includes('they/them')) {
+                  newPronounList = ['they', 'them', 'their', "they're", 'themselves'];
+                }
+                
+                // Replace each pronoun
+                for (let i = 0; i < oldPronounList.length && i < newPronounList.length; i++) {
+                  const oldPronoun = oldPronounList[i];
+                  const newPronoun = newPronounList[i];
+                  
+                  if (oldPronoun && newPronoun) {
+                    let pronounPattern = wholeWord ? '\\\\b' + oldPronoun + '\\\\b' : oldPronoun;
+                    const pronounRegex = new RegExp(pronounPattern, 'gi');
+                    
+                    newText = newText.replace(pronounRegex, (match) => {
+                      // Preserve case if needed
+                      if (!preserveCase) return newPronoun;
+                      if (match === match.toUpperCase()) return newPronoun.toUpperCase();
+                      if (match[0] === match[0].toUpperCase()) {
+                        return newPronoun.charAt(0).toUpperCase() + newPronoun.slice(1);
+                      }
+                      return newPronoun;
+                    });
+                  }
+                }
+              }
               
               // Update text if changes were made
               if (newText !== original) {

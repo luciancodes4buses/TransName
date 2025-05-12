@@ -194,7 +194,7 @@ function TransNameApp() {
                             <SelectTrigger className="w-full text-sm">
                               <SelectValue placeholder="Select pronouns" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent position="popper" className="min-w-[8rem] z-[9999]">
                               <SelectItem value="he/him">he/him</SelectItem>
                               <SelectItem value="she/her">she/her</SelectItem>
                               <SelectItem value="they/them">they/them</SelectItem>
@@ -216,7 +216,7 @@ function TransNameApp() {
                             <SelectTrigger className="w-full text-sm">
                               <SelectValue placeholder="Select pronouns" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent position="popper" className="min-w-[8rem] z-[9999]">
                               <SelectItem value="he/him">he/him</SelectItem>
                               <SelectItem value="she/her">she/her</SelectItem>
                               <SelectItem value="they/them">they/them</SelectItem>
