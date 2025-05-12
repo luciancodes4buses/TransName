@@ -181,77 +181,88 @@ function TransNameApp() {
                         </TooltipProvider>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-3">
-                        {/* Old pronouns */}
+                      <div className="grid grid-cols-1 gap-3">
+                        {/* Transition type selector */}
                         <div>
-                          <Label htmlFor="oldPronouns" className="block text-xs text-neutral-500 mb-1">
-                            Original
+                          <Label htmlFor="transitionType" className="block text-xs text-neutral-500 mb-1">
+                            I'm transitioning as:
                           </Label>
                           <div className="relative">
                             <Select
                               value={settings.oldPronouns}
-                              onValueChange={(value) => updateSettings({ oldPronouns: value })}
+                              onValueChange={(value) => {
+                                // Set both old and new pronouns based on transition type
+                                if (value === "mtf") {
+                                  updateSettings({ 
+                                    oldPronouns: "he/him",
+                                    newPronouns: "she/her" 
+                                  });
+                                } 
+                                else if (value === "ftm") {
+                                  updateSettings({ 
+                                    oldPronouns: "she/her",
+                                    newPronouns: "he/him" 
+                                  });
+                                }
+                                else if (value === "nonbinary") {
+                                  updateSettings({ 
+                                    oldPronouns: value, // Just store the selection in oldPronouns
+                                    newPronouns: "they/them" 
+                                  });
+                                }
+                                else {
+                                  updateSettings({ oldPronouns: value });
+                                }
+                              }}
                             >
                               <SelectTrigger className="w-full text-sm">
-                                <SelectValue placeholder="Select pronouns" />
+                                <SelectValue placeholder="Select your transition type" />
                               </SelectTrigger>
                               <SelectContent side="top" position="popper" sideOffset={5} className="min-w-[8rem] z-[9999]">
-                                <SelectItem value="he/him">he/him</SelectItem>
-                                <SelectItem value="she/her">she/her</SelectItem>
-                                <SelectItem value="they/them">they/them</SelectItem>
-                                <SelectItem value="ze/zir">ze/zir</SelectItem>
-                                <SelectItem value="custom">Custom</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                        </div>
-                        
-                        {/* New pronouns */}
-                        <div>
-                          <Label htmlFor="newPronouns" className="block text-xs text-neutral-500 mb-1">
-                            Preferred
-                          </Label>
-                          <div className="relative">
-                            <Select
-                              value={settings.newPronouns}
-                              onValueChange={(value) => updateSettings({ newPronouns: value })}
-                            >
-                              <SelectTrigger className="w-full text-sm">
-                                <SelectValue placeholder="Select pronouns" />
-                              </SelectTrigger>
-                              <SelectContent side="top" position="popper" sideOffset={5} className="min-w-[8rem] z-[9999]">
-                                <SelectItem value="he/him">he/him</SelectItem>
-                                <SelectItem value="she/her">she/her</SelectItem>
-                                <SelectItem value="they/them">they/them</SelectItem>
-                                <SelectItem value="ze/zir">ze/zir</SelectItem>
-                                <SelectItem value="custom">Custom</SelectItem>
+                                <SelectItem value="mtf">MTF (he/him → she/her)</SelectItem>
+                                <SelectItem value="ftm">FTM (she/her → he/him)</SelectItem>
+                                <SelectItem value="nonbinary">Non-binary (→ they/them)</SelectItem>
+                                <SelectItem value="custom">Custom (set manually below)</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>
                         </div>
                       </div>
                       
-                      {/* Custom pronouns inputs */}
-                      {(showCustomOldPronouns || showCustomNewPronouns) && (
-                        <div className="mt-3 grid grid-cols-2 gap-3">
-                          {showCustomOldPronouns && (
-                            <Input
-                              placeholder="Custom original pronouns"
+                      {/* Only show custom pronoun inputs if custom is selected */}
+                      {settings.oldPronouns === "custom" && (
+                        <div className="grid grid-cols-2 gap-3 mt-2">
+                          {/* Old pronouns custom input */}
+                          <div>
+                            <Label htmlFor="customOldPronouns" className="block text-xs text-neutral-500 mb-1">
+                              Original pronouns
+                            </Label>
+                            <Input 
+                              id="customOldPronouns"
+                              className="w-full text-sm" 
+                              placeholder="e.g. he/him"
                               value={settings.customOldPronouns || ""}
                               onChange={(e) => updateSettings({ customOldPronouns: e.target.value })}
-                              className="text-sm"
                             />
-                          )}
-                          {showCustomNewPronouns && (
-                            <Input
-                              placeholder="Custom preferred pronouns"
+                          </div>
+                          
+                          {/* New pronouns custom input */}
+                          <div>
+                            <Label htmlFor="customNewPronouns" className="block text-xs text-neutral-500 mb-1">
+                              Preferred pronouns
+                            </Label>
+                            <Input 
+                              id="customNewPronouns"
+                              className="w-full text-sm" 
+                              placeholder="e.g. she/her"
                               value={settings.customNewPronouns || ""}
                               onChange={(e) => updateSettings({ customNewPronouns: e.target.value })}
-                              className="text-sm"
                             />
-                          )}
+                          </div>
                         </div>
                       )}
+                      
+
                     </div>
                     
                     {/* Settings */}

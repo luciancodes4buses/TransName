@@ -19,8 +19,30 @@ const SimpleBookmarklet = () => {
           // Basic variables from settings
           const deadname = "${settings.deadname}";
           const preferredName = "${settings.preferredName}";
-          const oldPronouns = "${settings.oldPronouns === "custom" ? settings.customOldPronouns || "" : settings.oldPronouns}";
-          const newPronouns = "${settings.newPronouns === "custom" ? settings.customNewPronouns || "" : settings.newPronouns}";
+          
+          // Handle pronouns based on transition type or custom settings
+          let oldPronouns = "";
+          let newPronouns = "";
+          
+          if ("${settings.oldPronouns}" === "mtf") {
+            oldPronouns = "he/him";
+            newPronouns = "she/her";
+          } 
+          else if ("${settings.oldPronouns}" === "ftm") {
+            oldPronouns = "she/her";
+            newPronouns = "he/him";
+          }
+          else if ("${settings.oldPronouns}" === "nonbinary") {
+            // For non-binary transitions, we'll assume they're coming from either he/him or she/her
+            // based on the deadname vs preferred name
+            oldPronouns = "${settings.deadname.toLowerCase() !== settings.deadname}" ? "he/him" : "she/her";
+            newPronouns = "they/them";
+          }
+          else if ("${settings.oldPronouns}" === "custom") {
+            oldPronouns = "${settings.customOldPronouns || ""}";
+            newPronouns = "${settings.customNewPronouns || ""}";
+          }
+          
           const preserveCase = ${settings.preserveCase};
           const wholeWord = ${settings.wholeWord};
           
